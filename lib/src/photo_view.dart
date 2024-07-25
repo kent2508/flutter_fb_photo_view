@@ -100,7 +100,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       height: widget.height ?? 300.0,
       child: Row(
         children: [
-          Expanded(flex: 3, child: imageTile(dataSource[0])),
+          Expanded(flex: assetCount == 2 ? 1 : 3, child: imageTile(dataSource[0])),
           if (assetCount > 1) ...[
             const Gap(4.0),
             Expanded(
@@ -137,7 +137,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       height: widget.height ?? 300.0,
       child: Column(
         children: [
-          Expanded(flex: 3, child: imageTile(dataSource[0], imageWidth: double.infinity)),
+          Expanded(flex: assetCount == 2 ? 1 : 3, child: imageTile(dataSource[0], imageWidth: double.infinity)),
           if (assetCount > 1) ...[
             const Gap(4.0),
             Expanded(
@@ -177,7 +177,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       child: Row(
         children: [
           Expanded(
-              flex: 3,
+              flex: assetCount == 2 ? 1 : 3,
               child: Column(
                 children: [
                   Expanded(child: imageTile(dataSource[0], imageWidth: double.infinity)),
@@ -195,7 +195,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
                   if (assetCount > 3) const Gap(4.0),
                   if (assetCount > 3) Expanded(child: imageTile(dataSource[3])),
                   if (assetCount > 4) const Gap(4.0),
-                  if (assetCount > 5)
+                  if (assetCount >= 5)
                     Expanded(
                       child: Stack(
                         children: [
