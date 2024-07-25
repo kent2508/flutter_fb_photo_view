@@ -59,11 +59,17 @@ final combineItems = [
     );
   }
 ```
+displayType: FBPhotoViewType.list
 ![FBPhotoViewType.list](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/carousel_list.png?raw=true)
+displayType: FBPhotoViewType.grid3
 ![FBPhotoViewType.grid3](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid3.png?raw=true)
+displayType: FBPhotoViewType.grid4
 ![FBPhotoViewType.grid4](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid4.png?raw=true)
+displayType: FBPhotoViewType.grid5
 ![FBPhotoViewType.grid5](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid5.png?raw=true)
+Show fullscreen
 ![Show fullscreen](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/fullscreen.png?raw=true)
+Drag to dismiss
 ![Drag to dismiss](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/dismiss.png?raw=true)
 
 ## Additional information
