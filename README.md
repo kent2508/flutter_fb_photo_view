@@ -65,23 +65,23 @@ displayType: FBPhotoViewType.list
 
 displayType: FBPhotoViewType.grid3
 
-![FBPhotoViewType.grid3](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid3.png?raw=true)
+<img src="https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid3.png?raw=true" width="200" />
 
 displayType: FBPhotoViewType.grid4
 
-![FBPhotoViewType.grid4](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid4.png?raw=true)
+<img src="https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid4.png?raw=true" width="200" />
 
 displayType: FBPhotoViewType.grid5
 
-![FBPhotoViewType.grid5](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid5.png?raw=true)
+<img src="https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid5.png?raw=true" width="200" />
 
 Show fullscreen
 
-![Show fullscreen](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/fullscreen.png?raw=true)
+<img src="https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/fullscreen.png?raw=true" width="200" />
 
 Drag to dismiss
 
-![Drag to dismiss](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/dismiss.png?raw=true)
+<img src="https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/dismiss.png?raw=true" width="200" />
 
 ## Additional information
 This package's inspired by Facebook photo viewer. That's one of the best photo viewer between thousands apps out there. The author just want to bring it to Flutter community.
