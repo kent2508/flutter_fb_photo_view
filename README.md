@@ -61,4 +61,4 @@ final combineItems = [
 ```
 
 ## Additional information
-This package inspired by Facebook photo viewer. That's one of the best photo viewer between thousands apps out there. The author just want to bring it to Flutter community.
+This package's inspired by Facebook photo viewer. That's one of the best photo viewer between thousands apps out there. The author just want to bring it to Flutter community.
