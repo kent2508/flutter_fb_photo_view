@@ -1,7 +1,7 @@
 name: flutter_fb_photo_view
 description: "Package for viewing photos with zoom and swipe, just like Facebook"
 version: 1.0.0
-homepage:
+homepage: https://github.com/kent2508/flutter_fb_photo_view
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
