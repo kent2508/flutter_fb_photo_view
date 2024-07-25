@@ -51,9 +51,9 @@ final combineItems = [
     return Scaffold(
       backgroundColor: const Color.fromRGBO(228, 217, 236, 1),
       body: Center(
-        child: LinkIDPhotoView(
+        child: FBPhotoView(
           dataSource: combineItems,
-          displayType: LinkIDPhotoViewType.list,
+          displayType: FBPhotoViewType.list,
         ),
       ),
     );

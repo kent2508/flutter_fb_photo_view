@@ -15,13 +15,13 @@ class FBPhotoView extends StatefulWidget {
     required this.dataSource,
     this.height,
     this.customSubChild,
-    this.displayType = LinkIDPhotoViewType.list,
+    this.displayType = FBPhotoViewType.list,
   });
 
   final List<String> dataSource;
   final double? height;
   final List<Widget>? customSubChild;
-  final LinkIDPhotoViewType displayType;
+  final FBPhotoViewType displayType;
 
   @override
   State<FBPhotoView> createState() => _FBPhotoViewState();
@@ -30,14 +30,14 @@ class FBPhotoView extends StatefulWidget {
 class _FBPhotoViewState extends State<FBPhotoView> {
   int _currentIndex = 0;
   List<String> dataSource = [];
-  late LinkIDPhotoViewType displayType;
+  late FBPhotoViewType displayType;
   late CarouselController carouselController;
 
   @override
   void initState() {
     displayType = widget.displayType;
     dataSource = widget.dataSource;
-    if (displayType == LinkIDPhotoViewType.list) {
+    if (displayType == FBPhotoViewType.list) {
       carouselController = CarouselController();
     }
     super.initState();
@@ -46,14 +46,14 @@ class _FBPhotoViewState extends State<FBPhotoView> {
   @override
   Widget build(BuildContext context) {
     switch (displayType) {
-      case LinkIDPhotoViewType.grid3:
+      case FBPhotoViewType.grid3:
         return grid3();
-      case LinkIDPhotoViewType.grid4:
+      case FBPhotoViewType.grid4:
         return grid4();
-      case LinkIDPhotoViewType.grid5:
+      case FBPhotoViewType.grid5:
         return grid5();
       default:
-        // default display type: LinkIDPhotoViewType.list
+        // default display type: FBPhotoViewType.list
         return carousel();
     }
   }

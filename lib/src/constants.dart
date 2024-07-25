@@ -1,4 +1,4 @@
-enum LinkIDPhotoViewType {
+enum FBPhotoViewType {
   list,
   grid3,
   grid4,
