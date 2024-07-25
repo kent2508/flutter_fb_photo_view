@@ -60,7 +60,7 @@ final combineItems = [
   }
 ```
 displayType: FBPhotoViewType.list
-![FBPhotoViewType.list](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/carousel_list.png?raw=true)
+![FBPhotoViewType.list](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/carousel_list.png?raw=true =250x)
 displayType: FBPhotoViewType.grid3
 ![FBPhotoViewType.grid3](https://github.com/kent2508/flutter_fb_photo_view/blob/main/resources/grid3.png?raw=true)
 displayType: FBPhotoViewType.grid4
