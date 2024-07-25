@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: FBPhotoView(
             dataSource: combineItems,
-            displayType: FBPhotoViewType.grid4,
+            displayType: FBPhotoViewType.grid5,
           ),
         ),
       ),

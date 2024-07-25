@@ -195,7 +195,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
                   if (assetCount > 3) const Gap(4.0),
                   if (assetCount > 3) Expanded(child: imageTile(dataSource[3])),
                   if (assetCount > 4) const Gap(4.0),
-                  if (assetCount >= 5)
+                  if (assetCount > 4)
                     Expanded(
                       child: Stack(
                         children: [
