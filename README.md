@@ -46,6 +46,8 @@ final combineItems = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
 ];
 
+// use default photo container
+
 @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +56,58 @@ final combineItems = [
         child: FBPhotoView(
           dataSource: combineItems,
           displayType: FBPhotoViewType.list,
+        ),
+      ),
+    );
+  }
+
+// use custom photo container
+
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(228, 217, 236, 1),
+      body: Center(
+        child: return SizedBox(
+          height: 240,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              final source = combineItems[index];
+              final isRemoteAsset = source.isNetworkSource;
+              return GestureDetector(
+                onTap: () {
+                  // set the current index to the selected index
+                  currentIndexNotifier.value = index;
+                  FBPhotoView.displayImage(
+                    context,
+                    combineItems,
+                    displayIndex: index,
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Hero(
+                      tag: source,
+                      child: isRemoteAsset
+                          ? Image.network(
+                              source,
+                              width: 120,
+                              height: 240,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              source,
+                              width: 120,
+                              height: 240,
+                              fit: BoxFit.cover,
+                            )),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
+            itemCount: combineItems.length,
+          ),
         ),
       ),
     );

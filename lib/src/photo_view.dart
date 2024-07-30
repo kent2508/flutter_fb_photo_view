@@ -25,6 +25,15 @@ class FBPhotoView extends StatefulWidget {
 
   @override
   State<FBPhotoView> createState() => _FBPhotoViewState();
+
+  static displayImage(BuildContext context, List<String> dataSource, {int displayIndex = 0, List<Widget>? customSubChild, Function(int)? onPageChanged}) {
+    context.pushTransparentRoute(FBPhotoViewer(
+      intialIndex: displayIndex,
+      assets: dataSource,
+      customSubChild: customSubChild,
+      onPageChanged: onPageChanged,
+    ));
+  }
 }
 
 class _FBPhotoViewState extends State<FBPhotoView> {

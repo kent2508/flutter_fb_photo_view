@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Demo Page'),
     );
   }
 }
@@ -45,6 +45,26 @@ class _MyHomePageState extends State<MyHomePage> {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
   ];
 
+  ScrollController scrollController = ScrollController();
+
+  String _selectedItem = 'FBPhotoViewType.list'; // Default selected item
+
+  final List<String> _items = [
+    'FBPhotoViewType.list',
+    'FBPhotoViewType.grid3',
+    'FBPhotoViewType.grid4',
+    'FBPhotoViewType.grid5',
+    'Custom photo container',
+  ];
+
+  ValueNotifier<int> currentIndexNotifier = ValueNotifier(0);
+
+  @override
+  void dispose() {
+    currentIndexNotifier.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,14 +72,150 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Center(
-          child: FBPhotoView(
-            dataSource: combineItems,
-            displayType: FBPhotoViewType.grid5,
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            const Text('Change display type to see different layout'),
+            DropdownButton<String>(
+                value: _selectedItem,
+                icon: const Icon(Icons.arrow_drop_down),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(color: Colors.black, fontSize: 18),
+                underline: const SizedBox.shrink(),
+                onChanged: (String? newValue) {
+                  _selectedItem = newValue ?? '';
+                  setState(() {});
+                },
+                items: _items.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList()),
+            const SizedBox(height: 10),
+            imageContainer(),
+            const SizedBox(height: 100),
+          ],
         ),
       ),
     );
+  }
+
+  Widget imageContainer() {
+    switch (_selectedItem) {
+      case 'FBPhotoViewType.list':
+        return FBPhotoView(
+          key: UniqueKey(),
+          dataSource: combineItems,
+          displayType: FBPhotoViewType.list,
+          customSubChild: const [
+            Positioned(
+              left: 10,
+              bottom: 20,
+              child: Text(
+                'Text something here',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ),
+          ],
+        );
+      case 'FBPhotoViewType.grid3':
+        return FBPhotoView(
+          key: UniqueKey(),
+          dataSource: combineItems,
+          displayType: FBPhotoViewType.grid3,
+          customSubChild: [
+            Positioned(
+              right: 20,
+              bottom: 20,
+              child: Container(
+                width: 30,
+                height: 30,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        );
+      case 'FBPhotoViewType.grid4':
+        return FBPhotoView(
+          key: UniqueKey(),
+          dataSource: combineItems,
+          displayType: FBPhotoViewType.grid4,
+        );
+      case 'FBPhotoViewType.grid5':
+        return FBPhotoView(
+          key: UniqueKey(),
+          dataSource: combineItems,
+          displayType: FBPhotoViewType.grid5,
+        );
+
+      default:
+        return SizedBox(
+          height: 240,
+          child: ListView.separated(
+            controller: scrollController,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              final source = combineItems[index];
+              final isRemoteAsset = source.isNetworkSource;
+              return GestureDetector(
+                onTap: () {
+                  // set the current index to the selected index
+                  currentIndexNotifier.value = index;
+                  FBPhotoView.displayImage(
+                    context,
+                    combineItems,
+                    displayIndex: index,
+                    onPageChanged: (nextIndex) {
+                      currentIndexNotifier.value = nextIndex;
+                      scrollController.animateTo(16 + nextIndex * 130.0, duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
+                    },
+                    customSubChild: [
+                      Positioned(
+                        left: 20,
+                        bottom: 20,
+                        child: ValueListenableBuilder(
+                            valueListenable: currentIndexNotifier,
+                            builder: (context, currentIndex, _) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  'Page $currentIndex',
+                                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Hero(
+                      tag: source,
+                      child: isRemoteAsset
+                          ? Image.network(
+                              source,
+                              width: 120,
+                              height: 240,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              source,
+                              width: 120,
+                              height: 240,
+                              fit: BoxFit.cover,
+                            )),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
+            itemCount: combineItems.length,
+          ),
+        );
+    }
   }
 }
