@@ -1,3 +1,7 @@
+## 1.0.4
+* Release date: 29/10/2024
+* Update pageChange callback to handle photo change location in slide
+
 ## 1.0.3
 * Release date: 30/07/2024
 * Update display photo with custom photo container

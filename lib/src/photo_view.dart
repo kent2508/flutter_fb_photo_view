@@ -16,12 +16,14 @@ class FBPhotoView extends StatefulWidget {
     this.height,
     this.customSubChild,
     this.displayType = FBPhotoViewType.list,
+    this.onPageChanged,
   });
 
   final List<String> dataSource;
   final double? height;
   final List<Widget>? customSubChild;
   final FBPhotoViewType displayType;
+  final Function(int)? onPageChanged;
 
   @override
   State<FBPhotoView> createState() => _FBPhotoViewState();
@@ -261,12 +263,13 @@ class _FBPhotoViewState extends State<FBPhotoView> {
           intialIndex: _currentIndex,
           assets: dataSource,
           customSubChild: widget.customSubChild,
-          onPageChanged: usingCarousel
-              ? (index) {
-                  _currentIndex = index;
-                  carouselController.animateToPage(_currentIndex);
-                }
-              : null,
+          onPageChanged: (index) {
+            if (usingCarousel) {
+              _currentIndex = index;
+              carouselController.animateToPage(_currentIndex);
+            }
+            widget.onPageChanged?.call(index);
+          },
         ));
       },
       child: usingCarousel
