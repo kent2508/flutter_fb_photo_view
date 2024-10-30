@@ -1,3 +1,7 @@
+## 1.0.6
+* Release date: 30/10/2024
+* Update index for displayed photo
+
 ## 1.0.5
 * Release date: 30/10/2024
 * Update onStartDisplay, fit and thumbnailSource
