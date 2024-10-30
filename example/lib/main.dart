@@ -126,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return FBPhotoView(
           key: UniqueKey(),
           dataSource: combineItems,
+          thumbnailSource: combineItems,
           displayType: FBPhotoViewType.grid3,
           customSubChild: [
             Positioned(

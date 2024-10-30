@@ -13,17 +13,23 @@ class FBPhotoView extends StatefulWidget {
   const FBPhotoView({
     super.key,
     required this.dataSource,
+    this.thumbnailSource,
     this.height,
     this.customSubChild,
     this.displayType = FBPhotoViewType.list,
     this.onPageChanged,
+    this.onStartDisplay,
+    this.fit = BoxFit.cover,
   });
 
   final List<String> dataSource;
+  final List<String>? thumbnailSource;
   final double? height;
   final List<Widget>? customSubChild;
   final FBPhotoViewType displayType;
   final Function(int)? onPageChanged;
+  final Function()? onStartDisplay;
+  final BoxFit fit;
 
   @override
   State<FBPhotoView> createState() => _FBPhotoViewState();
@@ -111,20 +117,37 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       height: widget.height ?? 300.0,
       child: Row(
         children: [
-          Expanded(flex: assetCount == 2 ? 1 : 3, child: imageTile(dataSource[0])),
+          Expanded(
+              flex: assetCount == 2 ? 1 : 3,
+              child: imageTile(
+                dataSource[0],
+                thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 0) ? widget.thumbnailSource![0] : null,
+              )),
           if (assetCount > 1) ...[
             const Gap(4.0),
             Expanded(
               flex: 1,
               child: Column(
                 children: [
-                  Expanded(child: imageTile(dataSource[1])),
+                  Expanded(
+                      child: imageTile(
+                    dataSource[1],
+                    thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 1) ? widget.thumbnailSource![1] : null,
+                  )),
                   if (assetCount > 2) const Gap(4.0),
                   if (assetCount > 2)
                     Expanded(
                       child: Stack(
                         children: [
-                          Positioned(top: 0, left: 0, right: 0, bottom: 0, child: imageTile(dataSource[2])),
+                          Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              child: imageTile(
+                                dataSource[2],
+                                thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 2) ? widget.thumbnailSource![2] : null,
+                              )),
                           if (assetCount > 3) ...moreAssetCover(assetCount - 3),
                         ],
                       ),
@@ -148,22 +171,45 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       height: widget.height ?? 300.0,
       child: Column(
         children: [
-          Expanded(flex: assetCount == 2 ? 1 : 3, child: imageTile(dataSource[0], imageWidth: double.infinity)),
+          Expanded(
+              flex: assetCount == 2 ? 1 : 3,
+              child: imageTile(
+                dataSource[0],
+                thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 0) ? widget.thumbnailSource![0] : null,
+                imageWidth: double.infinity,
+              )),
           if (assetCount > 1) ...[
             const Gap(4.0),
             Expanded(
               flex: 1,
               child: Row(
                 children: [
-                  Expanded(child: imageTile(dataSource[1])),
+                  Expanded(
+                      child: imageTile(
+                    dataSource[1],
+                    thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 1) ? widget.thumbnailSource![1] : null,
+                  )),
                   if (assetCount > 2) const Gap(4.0),
-                  if (assetCount > 2) Expanded(child: imageTile(dataSource[2])),
+                  if (assetCount > 2)
+                    Expanded(
+                        child: imageTile(
+                      dataSource[2],
+                      thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 2) ? widget.thumbnailSource![2] : null,
+                    )),
                   if (assetCount > 3) const Gap(4.0),
                   if (assetCount > 3)
                     Expanded(
                       child: Stack(
                         children: [
-                          Positioned(top: 0, left: 0, right: 0, bottom: 0, child: imageTile(dataSource[3])),
+                          Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              child: imageTile(
+                                dataSource[3],
+                                thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 3) ? widget.thumbnailSource![3] : null,
+                              )),
                           if (assetCount > 4) ...moreAssetCover(assetCount - 4),
                         ],
                       ),
@@ -191,9 +237,20 @@ class _FBPhotoViewState extends State<FBPhotoView> {
               flex: assetCount == 2 ? 1 : 3,
               child: Column(
                 children: [
-                  Expanded(child: imageTile(dataSource[0], imageWidth: double.infinity)),
+                  Expanded(
+                      child: imageTile(
+                    dataSource[0],
+                    thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 0) ? widget.thumbnailSource![0] : null,
+                    imageWidth: double.infinity,
+                  )),
                   if (assetCount > 1) const Gap(4.0),
-                  if (assetCount > 1) Expanded(child: imageTile(dataSource[1], imageWidth: double.infinity)),
+                  if (assetCount > 1)
+                    Expanded(
+                        child: imageTile(
+                      dataSource[1],
+                      thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 1) ? widget.thumbnailSource![1] : null,
+                      imageWidth: double.infinity,
+                    )),
                 ],
               )),
           if (assetCount > 2) ...[
@@ -202,15 +259,32 @@ class _FBPhotoViewState extends State<FBPhotoView> {
               flex: 1,
               child: Column(
                 children: [
-                  Expanded(child: imageTile(dataSource[2])),
+                  Expanded(
+                      child: imageTile(
+                    dataSource[2],
+                    thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 2) ? widget.thumbnailSource![2] : null,
+                  )),
                   if (assetCount > 3) const Gap(4.0),
-                  if (assetCount > 3) Expanded(child: imageTile(dataSource[3])),
+                  if (assetCount > 3)
+                    Expanded(
+                        child: imageTile(
+                      dataSource[3],
+                      thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 3) ? widget.thumbnailSource![3] : null,
+                    )),
                   if (assetCount > 4) const Gap(4.0),
                   if (assetCount > 4)
                     Expanded(
                       child: Stack(
                         children: [
-                          Positioned(top: 0, left: 0, right: 0, bottom: 0, child: imageTile(dataSource[4])),
+                          Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              child: imageTile(
+                                dataSource[4],
+                                thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > 4) ? widget.thumbnailSource![4] : null,
+                              )),
                           if (assetCount > 5) ...moreAssetCover(assetCount - 5),
                         ],
                       ),
@@ -246,13 +320,14 @@ class _FBPhotoViewState extends State<FBPhotoView> {
 
   Widget imageTile(
     String assetSource, {
+    String? thumbnailSource,
     bool usingCarousel = false,
-    BoxFit fit = BoxFit.cover,
     double? imageWidth,
     double? imageHeight,
   }) {
     return GestureDetector(
       onTap: () {
+        widget.onStartDisplay?.call();
         // Use extension method to use [TransparentRoute]
         // This will push page without route background
         _currentIndex = dataSource.indexOf(assetSource);
@@ -277,14 +352,15 @@ class _FBPhotoViewState extends State<FBPhotoView> {
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
               decoration: const BoxDecoration(color: Colors.transparent),
-              child: renderImage(assetSource, fit: fit, imageWidth: imageWidth, imageHeight: imageHeight),
+              child: renderImage(assetSource, thumbnailSource: thumbnailSource, fit: widget.fit, imageWidth: imageWidth, imageHeight: imageHeight),
             )
-          : renderImage(assetSource, fit: fit, imageWidth: imageWidth, imageHeight: imageHeight),
+          : renderImage(assetSource, thumbnailSource: thumbnailSource, fit: widget.fit, imageWidth: imageWidth, imageHeight: imageHeight),
     );
   }
 
   Widget renderImage(
     String assetSource, {
+    String? thumbnailSource,
     BoxFit fit = BoxFit.cover,
     double? imageWidth,
     double? imageHeight,
@@ -294,7 +370,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       tag: assetSource,
       child: isNetworkAsset
           ? CachedNetworkImage(
-              imageUrl: assetSource,
+              imageUrl: thumbnailSource ?? assetSource,
               fit: fit,
               placeholder: (context, url) => Container(
                 color: Colors.grey[200],
@@ -305,7 +381,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
               width: imageWidth,
               height: imageHeight,
             )
-          : Image.asset(assetSource, fit: fit, width: imageWidth, height: imageHeight),
+          : Image.asset(thumbnailSource ?? assetSource, fit: fit, width: imageWidth, height: imageHeight),
     );
   }
 }

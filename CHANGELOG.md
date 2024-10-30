@@ -1,3 +1,7 @@
+## 1.0.5
+* Release date: 30/10/2024
+* Update onStartDisplay, fit and thumbnailSource
+
 ## 1.0.4
 * Release date: 29/10/2024
 * Update pageChange callback to handle photo change location in slide
