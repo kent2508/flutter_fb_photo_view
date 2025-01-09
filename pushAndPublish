@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+git add -A
+git commit -m "Update"
+git push origin main -uf
+dart pub publish --dry-run
+dart pub publish

@@ -13,15 +13,23 @@ class FBPhotoView extends StatefulWidget {
   const FBPhotoView({
     super.key,
     required this.dataSource,
+    this.thumbnailSource,
     this.height,
     this.customSubChild,
     this.displayType = FBPhotoViewType.list,
+    this.onPageChanged,
+    this.onStartDisplay,
+    this.fit = BoxFit.cover,
   });
 
   final List<String> dataSource;
+  final List<String>? thumbnailSource;
   final double? height;
   final List<Widget>? customSubChild;
   final FBPhotoViewType displayType;
+  final Function(int)? onPageChanged;
+  final Function(int)? onStartDisplay;
+  final BoxFit fit;
 
   @override
   State<FBPhotoView> createState() => _FBPhotoViewState();
@@ -175,9 +183,9 @@ class _FBPhotoViewState extends State<FBPhotoView> {
               flex: 1,
               child: Row(
                 children: [
-                  Expanded(child: imageTile(dataSource[1])),
+                  Expanded(child: imageTileAtIndex(1)),
                   if (assetCount > 2) const Gap(4.0),
-                  if (assetCount > 2) Expanded(child: imageTile(dataSource[2])),
+                  if (assetCount > 2) Expanded(child: imageTileAtIndex(2)),
                   if (assetCount > 3) const Gap(4.0),
                   if (assetCount > 3)
                     Expanded(
@@ -232,9 +240,9 @@ class _FBPhotoViewState extends State<FBPhotoView> {
               flex: 1,
               child: Column(
                 children: [
-                  Expanded(child: imageTile(dataSource[2])),
+                  Expanded(child: imageTileAtIndex(2)),
                   if (assetCount > 3) const Gap(4.0),
-                  if (assetCount > 3) Expanded(child: imageTile(dataSource[3])),
+                  if (assetCount > 3) Expanded(child: imageTileAtIndex(3)),
                   if (assetCount > 4) const Gap(4.0),
                   if (assetCount > 4)
                     Expanded(
@@ -281,15 +289,26 @@ class _FBPhotoViewState extends State<FBPhotoView> {
     );
   }
 
+  Widget imageTileAtIndex(int index, {double? imageWidth}) {
+    return imageTile(
+      dataSource[index],
+      thumbnailSource: ((widget.thumbnailSource?.length ?? 0) > index) ? widget.thumbnailSource![index] : null,
+      index: index,
+      imageWidth: imageWidth,
+    );
+  }
+
   Widget imageTile(
     String assetSource, {
+    String? thumbnailSource,
+    int? index,
     bool usingCarousel = false,
-    BoxFit fit = BoxFit.cover,
     double? imageWidth,
     double? imageHeight,
   }) {
     return GestureDetector(
       onTap: () {
+        widget.onStartDisplay?.call(index ?? 0);
         // Use extension method to use [TransparentRoute]
         // This will push page without route background
         _currentIndex = dataSource.indexOf(assetSource);
@@ -300,12 +319,13 @@ class _FBPhotoViewState extends State<FBPhotoView> {
           intialIndex: _currentIndex,
           assets: dataSource,
           customSubChild: widget.customSubChild,
-          onPageChanged: usingCarousel
-              ? (index) {
-                  _currentIndex = index;
-                  carouselController.animateToPage(_currentIndex);
-                }
-              : null,
+          onPageChanged: (index) {
+            if (usingCarousel) {
+              _currentIndex = index;
+              carouselController.animateToPage(_currentIndex);
+            }
+            widget.onPageChanged?.call(index);
+          },
         ));
       },
       child: usingCarousel
@@ -323,6 +343,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
 
   Widget renderImage(
     String assetSource, {
+    String? thumbnailSource,
     BoxFit fit = BoxFit.cover,
     double? imageWidth,
     double? imageHeight,
@@ -332,7 +353,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       tag: assetSource,
       child: isNetworkAsset
           ? CachedNetworkImage(
-              imageUrl: assetSource,
+              imageUrl: thumbnailSource ?? assetSource,
               fit: fit,
               placeholder: (context, url) => Container(
                 color: Colors.grey[200],

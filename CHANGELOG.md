@@ -1,3 +1,15 @@
+## 1.0.6
+* Release date: 30/10/2024
+* Update index for displayed photo
+
+## 1.0.5
+* Release date: 30/10/2024
+* Update onStartDisplay, fit and thumbnailSource
+
+## 1.0.4
+* Release date: 29/10/2024
+* Update pageChange callback to handle photo change location in slide
+
 ## 1.0.3
 * Release date: 30/07/2024
 * Update display photo with custom photo container
