@@ -1,6 +1,6 @@
 name: flutter_fb_photo_view
 description: "Package for viewing photos with zoom and swipe, just like Facebook"
-version: 1.0.6
+version: 1.0.7
 homepage: https://github.com/kent2508/flutter_fb_photo_view
 
 environment:
@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   photo_view: ^0.15.0
   dismissible_page: ^1.0.2
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   cached_network_image: ^3.3.1
   gap: ^3.0.1  
 

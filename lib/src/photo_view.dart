@@ -48,14 +48,14 @@ class _FBPhotoViewState extends State<FBPhotoView> {
   int _currentIndex = 0;
   List<String> dataSource = [];
   late FBPhotoViewType displayType;
-  late CarouselController carouselController;
+  late CarouselSliderController carouselController;
 
   @override
   void initState() {
     displayType = widget.displayType;
     dataSource = widget.dataSource;
     if (displayType == FBPhotoViewType.list) {
-      carouselController = CarouselController();
+      carouselController = CarouselSliderController();
     }
     super.initState();
   }
@@ -91,7 +91,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
       IgnorePointer(
         ignoring: true,
         child: Container(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withAlpha((0.5 * 255.0).toInt()),
         ),
       ),
       Align(

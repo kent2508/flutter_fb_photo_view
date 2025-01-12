@@ -45,6 +45,21 @@ class _MyHomePageState extends State<MyHomePage> {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
   ];
 
+  final newTest = [
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/20b7ca2b-c79b-4a40-83ee-c2527b025663.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/25b69d87-0aad-463a-8932-31f5e53b4e4b.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/876f789b-36d1-42dd-a3dd-df877473bc85.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/efc5fb88-b54d-4bdd-b128-d92609c77efb.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/59ae8169-1e36-4de7-ab92-ff70754d7c40.jpg",
+  ];
+  final newTestThumb = [
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/thumb_20b7ca2b-c79b-4a40-83ee-c2527b025663.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/thumb_25b69d87-0aad-463a-8932-31f5e53b4e4b.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/thumb_876f789b-36d1-42dd-a3dd-df877473bc85.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/thumb_efc5fb88-b54d-4bdd-b128-d92609c77efb.jpg",
+    "https://d3as25xk38qbzc.cloudfront.net/albums/122/thumb_59ae8169-1e36-4de7-ab92-ff70754d7c40.jpg",
+  ];
+
   ScrollController scrollController = ScrollController();
 
   String _selectedItem = 'FBPhotoViewType.list'; // Default selected item
@@ -125,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'FBPhotoViewType.grid3':
         return FBPhotoView(
           key: UniqueKey(),
-          dataSource: combineItems,
-          thumbnailSource: combineItems,
+          dataSource: newTest,
+          thumbnailSource: newTestThumb,
           displayType: FBPhotoViewType.grid3,
           customSubChild: [
             Positioned(
