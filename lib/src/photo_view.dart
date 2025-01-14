@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -34,10 +36,11 @@ class FBPhotoView extends StatefulWidget {
   @override
   State<FBPhotoView> createState() => _FBPhotoViewState();
 
-  static displayImage(BuildContext context, List<String> dataSource, {int displayIndex = 0, List<Widget>? customSubChild, Function(int)? onPageChanged}) {
+  static displayImage(BuildContext context, List<String> dataSource, {File? fileImage, int displayIndex = 0, List<Widget>? customSubChild, Function(int)? onPageChanged}) {
     context.pushTransparentRoute(FBPhotoViewer(
       intialIndex: displayIndex,
       assets: dataSource,
+      imageFile: fileImage,
       customSubChild: customSubChild,
       onPageChanged: onPageChanged,
     ));

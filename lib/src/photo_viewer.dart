@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -13,10 +14,12 @@ class FBPhotoViewer extends StatefulWidget {
     super.key,
     this.intialIndex = 0,
     this.assets = const [],
+    this.imageFile,
     this.onPageChanged,
     this.customSubChild,
   });
   final List<String> assets;
+  final File? imageFile;
   final int intialIndex;
   final Function(int)? onPageChanged;
   final List<Widget>? customSubChild;
@@ -46,40 +49,48 @@ class _FBPhotoViewerState extends State<FBPhotoViewer> {
       isFullScreen: false,
       child: Stack(
         children: [
-          PhotoViewGallery.builder(
-            scrollPhysics: const BouncingScrollPhysics(),
-            builder: (BuildContext context, int index) {
-              final assetSource = widget.assets[index];
-              final isNetworkAsset = assetSource.isNetworkSource;
-              return PhotoViewGalleryPageOptions.customChild(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: PhotoView(
-                    imageProvider: isNetworkAsset ? CachedNetworkImageProvider(assetSource) : AssetImage(assetSource),
-                    minScale: PhotoViewComputedScale.contained,
-                    initialScale: PhotoViewComputedScale.contained,
-                    heroAttributes: PhotoViewHeroAttributes(tag: assetSource),
+          if (widget.assets.isNotEmpty)
+            PhotoViewGallery.builder(
+              scrollPhysics: const BouncingScrollPhysics(),
+              builder: (BuildContext context, int index) {
+                final assetSource = widget.assets[index];
+                final isNetworkAsset = assetSource.isNetworkSource;
+                return PhotoViewGalleryPageOptions.customChild(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: PhotoView(
+                      imageProvider: isNetworkAsset ? CachedNetworkImageProvider(assetSource) : AssetImage(assetSource),
+                      minScale: PhotoViewComputedScale.contained,
+                      initialScale: PhotoViewComputedScale.contained,
+                      heroAttributes: PhotoViewHeroAttributes(tag: assetSource),
+                    ),
                   ),
+                );
+              },
+              itemCount: widget.assets.length,
+              loadingBuilder: (context, event) => const Center(
+                child: SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  // child: CircularProgressIndicator(
+                  //   value: event == null ? 0 : event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
+                  // ),
+                  child: CupertinoActivityIndicator(color: Colors.white, radius: 10),
                 ),
-              );
-            },
-            itemCount: widget.assets.length,
-            loadingBuilder: (context, event) => const Center(
-              child: SizedBox(
-                width: 20.0,
-                height: 20.0,
-                // child: CircularProgressIndicator(
-                //   value: event == null ? 0 : event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
-                // ),
-                child: CupertinoActivityIndicator(color: Colors.white, radius: 10),
               ),
+              backgroundDecoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              pageController: pageController,
+              onPageChanged: widget.onPageChanged,
             ),
-            backgroundDecoration: const BoxDecoration(
-              color: Colors.black,
+          if (widget.assets.isEmpty && widget.imageFile != null)
+            PhotoView(
+              imageProvider: FileImage(widget.imageFile!),
+              minScale: PhotoViewComputedScale.contained,
+              initialScale: PhotoViewComputedScale.contained,
+              heroAttributes: PhotoViewHeroAttributes(tag: widget.imageFile!.path),
             ),
-            pageController: pageController,
-            onPageChanged: widget.onPageChanged,
-          ),
           Positioned(
             top: 0,
             right: 0,

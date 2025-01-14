@@ -1,3 +1,7 @@
+## 1.0.8
+* Release date: 14/01/2025
+* Update load image from File source
+
 ## 1.0.7
 * Release date: 12/01/2025
 * Update carousel_slider => v5.0.0 to fix conflict issue from flutter 3.5
